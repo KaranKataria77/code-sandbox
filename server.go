@@ -25,7 +25,7 @@ func (s *server) ExecuteCode(ctx context.Context, req *pb.ExecutionRequest) (*pb
 	case "python":
 		cmd = exec.Command("python3", "-c", code)
 	case "javascript":
-		cmd = exec.Command("node", "-c", code)
+		cmd = exec.Command("node", "-e", code)
 	default:
 		return &pb.ExecutionResponse{Error: "Unsupported language"}, nil
 	}
