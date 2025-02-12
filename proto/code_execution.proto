@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package execution;
+
+option go_package = "/proto";
+
+service CodeExecutionService {
+    rpc ExecuteCode (ExecutionRequest) returns (ExecutionResponse);
+}
+
+message ExecutionRequest {
+    string language = 1;
+    string code = 2;
+    string input = 3;
+}
+
+message ExecutionResponse {
+    string output = 1;
+    string error = 2;
+}
