@@ -1,4 +1,4 @@
-module code-sandbox
+module github.com/KaranKataria77/code-sandbox
 
 go 1.23.5
 
