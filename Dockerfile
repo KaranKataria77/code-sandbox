@@ -7,6 +7,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Install required programming languages (Python, Node.js, Go)
 RUN apt-get update && apt-get install -y \
     bash \
+    curl \
+    wget \
+    net-tools \
     python3 python3-pip \
     nodejs npm \
     golang \

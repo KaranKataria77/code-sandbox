@@ -1,0 +1,18 @@
+syntax="proto3";
+
+package downloadFile;
+
+option go_package = "/proto";
+
+service FileDownloadService {
+    rpc DownloadFile(FileRequest) returns (FileResponse);
+}
+
+message FileRequest {
+    string FolderName = 1;
+}
+
+message FileResponse {
+    repeated string files_downloaded = 1;
+    string error = 2;
+}

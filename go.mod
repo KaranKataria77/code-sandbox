@@ -8,6 +8,8 @@ require (
 )
 
 require (
+	github.com/joho/godotenv v1.5.1 // indirect
+	github.com/supabase-community/storage-go v0.7.0 // indirect
 	golang.org/x/net v0.32.0 // indirect
 	golang.org/x/sys v0.28.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
