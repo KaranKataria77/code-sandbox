@@ -1,12 +1,17 @@
 package main
 
 import (
-	pb "code-sandbox/proto"
+	pb "code-execution-sandbox/proto"
 	"fmt"
 	"log"
 	"net"
+	"net/http"
 
-	"code-sandbox/internal/setup"
+	"code-execution-sandbox/internal/setup"
+
+	"github.com/soheilhy/cmux"
+
+	"code-execution-sandbox/internal/routes"
 
 	"google.golang.org/grpc"
 )
@@ -43,13 +48,27 @@ func main() {
 	if err != nil {
 		log.Fatal("Failed to listen " + err.Error())
 	}
+
+	// create a connection multiplexer
+	m := cmux.New(listener)
+
+	grpcl := m.Match(cmux.HTTP2())
+	httpl := m.Match(cmux.HTTP1Fast())
+
 	grpcServer := grpc.NewServer()
 	pb.RegisterFileDownloadServiceServer(grpcServer, &setup.Server{})
 	// pb.RegisterCodeExecutionServiceServer(grpcServer, &server{})
 
-	fmt.Println("gRPC server is running on port 50051")
+	httpServer := &http.Server{
+		Handler: routes.SetupRoutes(),
+	}
 
-	if err := grpcServer.Serve(listener); err != nil {
-		log.Fatal("Failed to server " + err.Error())
+	go grpcServer.Serve(grpcl)
+	go httpServer.Serve(httpl)
+
+	fmt.Println("multiplexer server is running")
+
+	if err := m.Serve(); err != nil {
+		log.Println("Error while running CMUX " + err.Error())
 	}
 }
