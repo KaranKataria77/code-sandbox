@@ -5,7 +5,7 @@ package downloadFile;
 option go_package = "/proto";
 
 service FileDownloadService {
-    rpc DownloadFile(FileRequest) returns (FileResponse);
+    rpc CreateFolder(FileRequest) returns (FileResponse);
 }
 
 message FileRequest {

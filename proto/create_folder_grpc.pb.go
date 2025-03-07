@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v6.30.0
-// source: proto/download_file.proto
+// source: proto/create_folder.proto
 
 package proto
 
@@ -19,14 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	FileDownloadService_DownloadFile_FullMethodName = "/downloadFile.FileDownloadService/DownloadFile"
+	FileDownloadService_CreateFolder_FullMethodName = "/downloadFile.FileDownloadService/CreateFolder"
 )
 
 // FileDownloadServiceClient is the client API for FileDownloadService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type FileDownloadServiceClient interface {
-	DownloadFile(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*FileResponse, error)
+	CreateFolder(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*FileResponse, error)
 }
 
 type fileDownloadServiceClient struct {
@@ -37,10 +37,10 @@ func NewFileDownloadServiceClient(cc grpc.ClientConnInterface) FileDownloadServi
 	return &fileDownloadServiceClient{cc}
 }
 
-func (c *fileDownloadServiceClient) DownloadFile(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*FileResponse, error) {
+func (c *fileDownloadServiceClient) CreateFolder(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*FileResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(FileResponse)
-	err := c.cc.Invoke(ctx, FileDownloadService_DownloadFile_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, FileDownloadService_CreateFolder_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +51,7 @@ func (c *fileDownloadServiceClient) DownloadFile(ctx context.Context, in *FileRe
 // All implementations must embed UnimplementedFileDownloadServiceServer
 // for forward compatibility.
 type FileDownloadServiceServer interface {
-	DownloadFile(context.Context, *FileRequest) (*FileResponse, error)
+	CreateFolder(context.Context, *FileRequest) (*FileResponse, error)
 	mustEmbedUnimplementedFileDownloadServiceServer()
 }
 
@@ -62,8 +62,8 @@ type FileDownloadServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedFileDownloadServiceServer struct{}
 
-func (UnimplementedFileDownloadServiceServer) DownloadFile(context.Context, *FileRequest) (*FileResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DownloadFile not implemented")
+func (UnimplementedFileDownloadServiceServer) CreateFolder(context.Context, *FileRequest) (*FileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateFolder not implemented")
 }
 func (UnimplementedFileDownloadServiceServer) mustEmbedUnimplementedFileDownloadServiceServer() {}
 func (UnimplementedFileDownloadServiceServer) testEmbeddedByValue()                             {}
@@ -86,20 +86,20 @@ func RegisterFileDownloadServiceServer(s grpc.ServiceRegistrar, srv FileDownload
 	s.RegisterService(&FileDownloadService_ServiceDesc, srv)
 }
 
-func _FileDownloadService_DownloadFile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _FileDownloadService_CreateFolder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(FileRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FileDownloadServiceServer).DownloadFile(ctx, in)
+		return srv.(FileDownloadServiceServer).CreateFolder(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: FileDownloadService_DownloadFile_FullMethodName,
+		FullMethod: FileDownloadService_CreateFolder_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FileDownloadServiceServer).DownloadFile(ctx, req.(*FileRequest))
+		return srv.(FileDownloadServiceServer).CreateFolder(ctx, req.(*FileRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -112,10 +112,10 @@ var FileDownloadService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*FileDownloadServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "DownloadFile",
-			Handler:    _FileDownloadService_DownloadFile_Handler,
+			MethodName: "CreateFolder",
+			Handler:    _FileDownloadService_CreateFolder_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/download_file.proto",
+	Metadata: "proto/create_folder.proto",
 }
